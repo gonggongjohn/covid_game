@@ -93,12 +93,12 @@ public class RestMock<k, v> {
      * uri 示例 "http://127.0.0.1:80";
      * @return
      */
-    public Map<String,Object> sendPost(String uri,List<String> jsonList) {
-        ResponseEntity<Map> apiResponse = restTemplate.postForEntity
+    public String sendPost(String uri,List<String> jsonList) {
+        ResponseEntity<String> apiResponse = restTemplate.postForEntity
                 (
                         uri,
                         generatePostJson(jsonList),
-                        Map.class
+                        String.class
                 );
         return apiResponse.getBody();
     }

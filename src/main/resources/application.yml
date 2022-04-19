@@ -1,5 +1,5 @@
 server:
-  port: 7001
+  port: 80
   servlet:
     context-path: / #项目的上下文路径
 spring:
@@ -34,5 +34,9 @@ http_pool:
 
 #comment
 comment_server:
-  host: ${HOST:127.0.0.1}
-  port: ${PORT:8002}
+  host: ${HOST:139.196.59.66}
+  port: ${PORT:7002}
+
+#图片配置
+picture:
+  path: /root/covid_game/backend/

@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
@@ -33,5 +37,13 @@ class RecordServiceImplTest {
         Record record = recordService.loadRecord(1);
         record.setUserId(2);
         recordService.saveRecord(record);
+    }
+
+    @Test
+    void getRecordLsit(){
+        List<Record> list = recordService.getUserRecordList(1);
+        for(Record o:list){
+            System.out.println(o);
+        }
     }
 }

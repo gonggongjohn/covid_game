@@ -12,9 +12,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Autowired
     private IUserService userService;
