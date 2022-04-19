@@ -44,27 +44,14 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, reactive, ref } from "vue";
-import { api } from "boot/axios";
-import { useRoute, useRouter } from "vue-router";
+import { defineComponent, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
-  name: "PageIdentityDescription",
+  name: "EndPage",
 
   setup() {
-    const route = useRoute();
     const router = useRouter();
-    const state = reactive({
-      question_id: 1,
-      identity_num: 1,
-      question_description: "",
-      choice_list: [
-        {
-          id: 1,
-          text: "",
-        },
-      ],
-    });
 
     const fadeShow = ref(false);
 
@@ -78,40 +65,8 @@ export default defineComponent({
       router.push('/start');
     }
 
-    function onChoose(index) {
-      let url =
-        getHostUrl() +
-        ":8082/question/choose?uid=" +
-        state.identity_num +
-        "&qid=" +
-        state.question_id +
-        "&oid=" +
-        state.choice_list[index].id;
-      api
-        .get(url)
-        .then((response) => {
-          let qid = response.data.qid;
-          if(qid == -1){
-              router.push("/end");
-          }
-          router
-            .push({
-              path: "/question",
-              query: { id: state.identity_num, qid: qid },
-            })
-            .then(() => {
-              router.go(0);
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-
     return {
-      state,
       fadeShow,
-      onChoose,
       jumpStart
     };
   },

@@ -17,8 +17,8 @@
       :clickEffect="true"
       clickMode="push"
       style="width: 100%;height: 100%;position: absolute"
-    >
-    </vue-particles>
+    />
+
     <div class="full-width row justify-center text-white">
       <div v-if="display_mode === 1" class="row justify-center">
         <transition name="fade-description">
@@ -39,6 +39,7 @@
           </template>
         </transition-group>
       </div>
+
       <div class="q-mb-sm col-12 row justify-center">
       <transition name="fade-commentary">
         <div v-if="fade_commentary" class="col-10 row justify-center">
@@ -48,6 +49,7 @@
         </div>
       </transition>
       </div>
+
       <transition name="fade-description">
         <div v-if="display_mode === 2" class="full-width row justify-center">
           <template v-for="(item, index) in narrate_list" :key="'narrate_' + index">
@@ -139,6 +141,13 @@ export default defineComponent({
           if(commentary != undefined && commentary != ""){
             commentary_word.value = commentary;
             fade_commentary.value = true;
+            let rid = localStorage.getItem('rid');
+            let user_id = localStorage.getItem('user_id');
+            if(rid != undefined && user_id != undefined){
+              achieveCommentary(user_id, rid, option_list[index].cid, () => {
+                console.log("评注已达成！")
+              });
+            }
           }
         })
       });
@@ -149,7 +158,7 @@ export default defineComponent({
         router.push({ path: "/question", query: { qid: nextQuestion.value } });
       }
       else if(nextQuestion.value == -1){
-        router.push('/end');
+        router.push('/comment');
       }
     }
 
@@ -207,6 +216,17 @@ export default defineComponent({
       let url = '/commentary/description?' + params;
       api.post(url).then((response) => {
         callback(response.data.description);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
+    function achieveCommentary(user_id, rid, cid, callback){
+      let params = "user_id=" + user_id + "&rid=" + rid + "&cid=" + cid;
+      let url = '/commentary/achieve?' + params;
+      api.put(url).then((response) => {
+        callback();
       })
       .catch((error) => {
         console.log(error);

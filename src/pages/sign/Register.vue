@@ -1,6 +1,24 @@
 <template>
   <!-- <q-page class="flex flex-center"> -->
-  <q-page class="flex flex-center" :style="{'background-image': 'url(' + backgroundImg + ')'}">
+  <q-page class="flex flex-center">
+    <vue-particles
+      color="#dedede"
+      :particleOpacity="0.7"
+      :particlesNumber="80"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#dedede"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
+      style="width: 100%;height: 100%;position: absolute"
+    />
     <div class="full-width row justify-center text-white">
       <h3>注册账号</h3>
       <div class="q-mb-sm col-12 row justify-center">
@@ -39,7 +57,6 @@
 
 <script>
 import { reactive, ref } from 'vue';
-import backgroundImg from '../assets/background.jpg';
 import { useRouter } from 'vue-router';
 import { api } from "boot/axios";
 
@@ -91,7 +108,6 @@ export default {
 
       return{
         register_credentials,
-        backgroundImg,
         showPassword,
         showInfo,
         infoTitle,
