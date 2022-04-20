@@ -33,7 +33,7 @@ public class ApplicationValues {
     @Value("${comment_server.port}")
     private int port;
 
-    @Value("picture.path")
+    @Value("${picture.path}")
     private String path;
 }
 
