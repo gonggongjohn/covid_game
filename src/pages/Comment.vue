@@ -89,11 +89,13 @@ export default {
         });
       }
       if(rid != undefined){
-        getComment((comment) =>{
+        getComment(rid, (comment) =>{
           comment_word.value = comment;
-        })
+        });
         getCommentary(rid, (commentary_back) => {
-          commentary_list = commentary_back;
+          commentary_back.forEach(element => {
+            commentary_list.push(element);
+          });
         });
       }
       fadeShow.value = true;
@@ -121,17 +123,18 @@ export default {
       });
     }
 
-    function getComment(callback){
-      /*
-      let url = "/commentary/record?rid=" + rid;
-      api.post(url).then((response) => {
+    function getComment(rid, callback){
+      let url = "/comment/getAndSaveComment";
+      api.get(url, {
+        params: {rid: rid}
+      }).then((response) => {
         let resp_data = response.data;
+        console.log(resp_data);
         callback(resp_data);
       })
       .catch((error) => {
         console.log(error);
       });
-      */
     }
 
     function onContinue(){

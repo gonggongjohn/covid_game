@@ -212,14 +212,19 @@ export default defineComponent({
     }
 
     function getCommentary(cid, callback){
-      let params = "cid=" + cid;
-      let url = '/commentary/description?' + params;
-      api.post(url).then((response) => {
-        callback(response.data.description);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      if(cid != -1 && cid != undefined){
+        let params = "cid=" + cid;
+        let url = '/commentary/description?' + params;
+        api.post(url).then((response) => {
+          callback(response.data.description);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+      else{
+        callback("");
+      }
     }
 
     function achieveCommentary(user_id, rid, cid, callback){
